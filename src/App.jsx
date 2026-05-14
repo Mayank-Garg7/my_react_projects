@@ -1,9 +1,9 @@
 import React from 'react'
-import ToDos from './components/ToDo_App/ToDos'
+import ToDos from './components/ToDos'
 
 function App() {
   return (
-    <div className='bg-cyan-950 h-full w-full flex  justify-center'>
+    <div className="min-h-screen bg-cyan-950 flex justify-center items-start p-5">
       <ToDos />
     </div>
   )
