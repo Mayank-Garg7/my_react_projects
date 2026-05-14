@@ -1,8 +1,11 @@
 import React from 'react'
 
-function Button({children, type= ''}) {
+function Button({ children, type = 'button' }) {
   return (
-    <button type={type} className='justify-self-center border border-white p-2 text-white cursor-pointer bg-cyan-800 rounded-sm'>
+    <button
+      type={type}
+      className="w-full bg-cyan-600 hover:bg-cyan-700 transition text-white font-semibold py-3 rounded-lg"
+    >
       {children}
     </button>
   )
