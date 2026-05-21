@@ -30,7 +30,11 @@ export const ContextProvider = ({ children }: ChildrenProps) => {
 
 
     const add_To_Work = (text: string) => {
-        console.log(text)
+        const newTask : Task = {
+            id: new Date().getSeconds(),
+            text: text,
+        }
+        setWork((prev) => [newTask, ...prev])
     }
 
 

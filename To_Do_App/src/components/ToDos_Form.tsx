@@ -1,12 +1,12 @@
 import Card from "./shared/Card";
 import Button from "./shared/Button";
-import { useContext, useState } from "react";
-import Context_Work from "../context/Context_Work";
+import { useState } from "react";
+import { useWorkContext } from "../hooks/useWorkContext";
 
 function ToDos_Form() {
     const [text, setText] = useState("");
     const [showMessage, setShowMessage] = useState(false);
-    const {add_To_Work} = useContext(Context_Work)!;
+    const {add_To_Work} = useWorkContext();
 
 
     const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
