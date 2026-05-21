@@ -2,6 +2,7 @@ import { createContext, useEffect, useState, type ReactNode } from 'react';
 import Tasks from '../Data/Tasks.json'
 
 
+
 type ContextType = {
   work: Task[];
   add_To_Work: (text: string) => void;
@@ -12,7 +13,7 @@ const Context_Work = createContext<ContextType | null>(null);
 type ChildrenProps = {
     children: ReactNode
 }
-type Task = {
+export type Task = {
     id: number;
     text: string;
 };
