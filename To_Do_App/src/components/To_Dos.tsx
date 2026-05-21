@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Tasks from "../Data/Tasks.json";
+import ToDos_Form from "./ToDos_Form";
 
 type Task = {
   id: number;
@@ -17,7 +18,12 @@ function To_Dos() {
     localStorage.setItem("Work_to_do", JSON.stringify(work));
   }, [work]);
 
-  return <div>hello</div>;
+  return (
+    <div className="min-h-screen bg-cyan-900 text-white p-20">
+      <ToDos_Form />
+
+    </div>
+  );
 }
 
 export default To_Dos;
