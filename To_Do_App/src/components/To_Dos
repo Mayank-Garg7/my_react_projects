@@ -1,0 +1,17 @@
+import { useEffect, useState } from "react";
+import Tasks from "../Data/Tasks.json";
+
+function To_Dos() {
+  const [work, setWork] = useState(() => {
+    const data = localStorage.getItem("Work_to_do");
+    return data ? JSON.parse(data) : Tasks;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("Work_to_do", JSON.stringify(work));
+  }, [work]);
+
+  return <div>hello</div>;
+}
+
+export default To_Dos;
