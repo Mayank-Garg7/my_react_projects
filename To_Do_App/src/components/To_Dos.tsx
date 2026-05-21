@@ -10,7 +10,7 @@ function To_Dos() {
   const [work, setWork] = useState<Task[]>(() => {
     const data = localStorage.getItem("Work_to_do");
 
-    return data ? JSON.parse(data) : Tasks;
+    return data ? ( JSON.parse(data) as Task[] ) : Tasks;
   });
 
   useEffect(() => {
