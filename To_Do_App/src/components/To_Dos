@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react";
 import Tasks from "../Data/Tasks.json";
 
+type Task = {
+  id: number;
+  text: string;
+};
+
 function To_Dos() {
-  const [work, setWork] = useState(() => {
+  const [work, setWork] = useState<Task[]>(() => {
     const data = localStorage.getItem("Work_to_do");
+
     return data ? JSON.parse(data) : Tasks;
   });
 
