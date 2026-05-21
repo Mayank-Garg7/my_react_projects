@@ -6,23 +6,23 @@ function ToDos_Form() {
     const [text, setText] = useState("");
     const [showMessage, setShowMessage] = useState(false);
 
-    const handleTextChange = (
-        event: React.ChangeEvent<HTMLInputElement>
-    ) => {
+
+    const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
-
         setShowMessage(value.trim().length > 0 && value.trim().length < 10);
-
         setText(value);
     };
 
-    const handleSubmit = (
-        event: React.FormEvent<HTMLFormElement>
-    ) => {
-        event.preventDefault();
 
-        console.log(text);
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        const newWork = {
+            id: new Date().getSeconds(),
+            text
+        }
+        add_To_Work(newTask)
     };
+
 
     return (
         <Card>
@@ -31,10 +31,7 @@ function ToDos_Form() {
                     What are you thinking to complete next.
                 </h1>
 
-                <form
-                    onSubmit={handleSubmit}
-                    className="flex gap-4 flex-col"
-                >
+                <form onSubmit={handleSubmit} className="flex gap-4 flex-col" >
                     <input
                         type="text"
                         value={text}
@@ -43,15 +40,9 @@ function ToDos_Form() {
                         placeholder="what are you thinking to do next"
                     />
 
-                    {showMessage && (
-                        <p className="text-xl m-auto my-1">
-                            😉 Think more dude!
-                        </p>
-                    )}
+                    {showMessage && (<p className="text-xl m-auto my-1">😉 Think more dude!</p>)}
 
-                    <Button type="submit">
-                        Submit
-                    </Button>
+                    <Button type="submit">Submit</Button>
                 </form>
             </div>
         </Card>
