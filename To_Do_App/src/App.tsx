@@ -1,12 +1,8 @@
-import React from 'react'
-import ToDos from './components/ToDos'
-
-const App: React.FC = () => {
+import To_Dos from './components/To_Dos'
+export default function App() {
   return (
-    <div className="min-h-screen bg-cyan-950 flex justify-center items-start p-5">
-      <ToDos />
+    <div>
+      <To_Dos />
     </div>
   )
 }
-
-export default App
