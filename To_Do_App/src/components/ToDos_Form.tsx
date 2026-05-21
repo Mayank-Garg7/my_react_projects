@@ -1,10 +1,12 @@
 import Card from "./shared/Card";
 import Button from "./shared/Button";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import Context_Work from "../context/Context_Work";
 
 function ToDos_Form() {
     const [text, setText] = useState("");
     const [showMessage, setShowMessage] = useState(false);
+    const {add_To_Work} = useContext(Context_Work)!;
 
 
     const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -16,11 +18,7 @@ function ToDos_Form() {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const newWork = {
-            id: new Date().getSeconds(),
-            text
-        }
-        add_To_Work(newTask)
+        add_To_Work(text)
     };
 
 
