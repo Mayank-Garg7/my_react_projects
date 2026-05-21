@@ -19,7 +19,7 @@ function Button({
   return (
     <button
       type={type}
-      className={`px-3 py-2 rounded-lg ${styles}`}
+      className={`w-3/4 m-auto px-3 py-2 rounded-lg ${styles}`}
     >
       {children}
     </button>

@@ -33,13 +33,13 @@ function ToDos_Form() {
 
                 <form
                     onSubmit={handleSubmit}
-                    className="flex gap-3 flex-col"
+                    className="flex gap-4 flex-col"
                 >
                     <input
                         type="text"
                         value={text}
                         onChange={handleTextChange}
-                        className="bg-gray-100 w-3/4 m-auto p-2 rounded-lg text-black font-bold"
+                        className="bg-gray-100 w-3/4 m-auto px-3 py-2 rounded-lg text-black font-bold"
                         placeholder="what are you thinking to do next"
                     />
 
