@@ -1,19 +1,29 @@
-import type { Task } from "../context/Context_Work";
+import { useContext } from "react";
+import Context_Work, {
+  type Task,
+} from "../context/Context_Work";
+
 import Card from "./shared/Card";
-import { FaTimes, FaUserEdit } from "react-icons/fa";
+
+import {
+  FaTrash,
+  FaPen,
+} from "react-icons/fa";
 
 type ShowTaskProps = {
   item: Task;
-  updateTaskStatus: (
-    id: number,
-    status: "pending" | "completed"
-  ) => void;
 };
 
-function Show_Task({
-  item,
-  updateTaskStatus,
-}: ShowTaskProps) {
+function Show_Task({ item }: ShowTaskProps) {
+  const context = useContext(Context_Work);
+
+  if (!context) {
+    throw new Error(
+      "Show_Task must be used inside ContextProvider"
+    );
+  }
+
+  const { updateTaskStatus } = context;
 
   const handleStatusChange = (
     e: React.ChangeEvent<HTMLSelectElement>
@@ -26,30 +36,57 @@ function Show_Task({
 
   return (
     <Card>
-      <p>{item.text}</p>
+      <div className="flex items-start justify-between gap-4">
+        {/* LEFT SIDE */}
+        <div className="flex-1">
+          <p className={`text-sm md:text-base ${item.status === "completed" ? "line-through text-gray-400" : "text-white"} font-medium leading-relaxed`}>
+            {item.text}
+          </p>
+            <select
+              value={item.status}
+              onChange={handleStatusChange}
+              className="text-sm rounded-md px-2 py-1 bg-white text-gray-700 outline-none focus:ring-2 focus:ring-blue-400"
+            >
+              <option value="pending">
+                Pending
+              </option>
 
-      <FaTimes className="absolute right-3 top-3 text-red-600" />
+              <option value="completed">
+                Completed
+              </option>
+            </select>
+        </div>
 
-      <FaUserEdit className="absolute right-10 top-3 text-green-600" />
+        {/* RIGHT SIDE ACTIONS */}
+        <div className="flex items-center gap-3">
 
-      <span
-        className={
-          item.status === "completed"
-            ? "text-green-600"
-            : "text-yellow-500"
-        }
-      >
-        Status: {item.status}
-      </span>
+          <button
+            className="
+              p-2
+              rounded-md
+              text-gray-500
+              hover:bg-green-100
+              hover:text-green-600
+              transition
+            "
+          >
+            <FaPen />
+          </button>
 
-      <select
-        className="absolute right-3 text-black"
-        value={item.status}
-        onChange={handleStatusChange}
-      >
-        <option value="pending">pending</option>
-        <option value="completed">completed</option>
-      </select>
+          <button
+            className="
+              p-2
+              rounded-md
+              text-gray-500
+              hover:bg-red-100
+              hover:text-red-600
+              transition
+            "
+          >
+            <FaTrash />
+          </button>
+        </div>
+      </div>
     </Card>
   );
 }
