@@ -12,6 +12,8 @@ export type Task = {
 type ContextType = {
     work: Task[];
     add_To_Work: (text: string) => void;
+    delete_Work: (id: number) => void;
+    update_Work: (id: number, text: string) => void;
     updateTaskStatus: (
         id: number,
         status: "pending" | "completed"
@@ -54,6 +56,19 @@ export const ContextProvider = ({ children, }: ChildrenProps) => {
     };
 
 
+    // Update task 
+    const update_Work = (id: number, text: string) => {
+        console.log(id,"object",text)
+    }
+
+
+    // delete task
+    const delete_Work = (id: number) => {
+        if(window.confirm("Are you sure to delete")){
+            setWork((prev) => prev.filter((item) => item.id !== id))
+        }
+    }
+
     // update status
     const updateTaskStatus = (id: number, status: "pending" | "completed") => {
         setWork((prev) =>
@@ -71,6 +86,8 @@ export const ContextProvider = ({ children, }: ChildrenProps) => {
             value={{
                 work,
                 add_To_Work,
+                update_Work,
+                delete_Work,
                 updateTaskStatus,
             }}
         >
