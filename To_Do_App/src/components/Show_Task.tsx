@@ -7,9 +7,16 @@ type ShowTaskProps = {
 };
 
 function Show_Task({ item }: ShowTaskProps) {
-  const handleStatusChange = (status: string) => {
-    console.log(status);
-  }
+  const handleStatusChange = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    updateTaskStatus(
+      item.id,
+      e.target.value as "pending" | "completed"
+    );
+  };
+
+
   return (
     <Card>
       <p>{item.text}</p>
@@ -19,7 +26,7 @@ function Show_Task({ item }: ShowTaskProps) {
       <select 
       className="absolute right-3 text-black"
       value={item.status}
-      onChange={(e) => handleStatusChange(e.target.value)}
+      onChange={handleStatusChange}
       >
         <option value="status">status</option>
         <option value="pending">pending</option>
