@@ -6,7 +6,7 @@ import { useWorkContext } from "../hooks/useWorkContext";
 function ToDos_Form() {
     const [text, setText] = useState("");
     const [showMessage, setShowMessage] = useState(false);
-    const {add_To_Work} = useWorkContext();
+    const { add_To_Work } = useWorkContext();
 
 
     const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -16,9 +16,13 @@ function ToDos_Form() {
     };
 
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
         event.preventDefault();
-        add_To_Work(text)
+        if (text.trim().length === 0 || text.trim().length < 10) {
+            window.alert("text must be atleast 10 character long")
+        } else {
+            add_To_Work(text)
+        }
     };
 
 
@@ -34,7 +38,7 @@ function ToDos_Form() {
                         type="text"
                         value={text}
                         onChange={handleTextChange}
-                        className="bg-gray-100 w-3/4 m-auto px-3 py-2 rounded-lg text-black font-bold"
+                        className="bg-gray-100 w-3/4 m-auto px-3 py-2 rounded-lg text-black font-bold outline-none focus:ring-2 focus:ring-blue-400"
                         placeholder="what are you thinking to do next"
                     />
 
