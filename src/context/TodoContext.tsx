@@ -27,7 +27,7 @@ type ContextType = {
 };
 
 
-const Context_Work = createContext<ContextType | null>(null);
+const TodoContext = createContext<ContextType | null>(null);
 
 
 type ChildrenProps = {
@@ -104,7 +104,7 @@ export const ContextProvider = ({ children, }: ChildrenProps) => {
 
 
     return (
-        <Context_Work.Provider
+        <TodoContext.Provider
             value={{
                 work,
                 add_To_Work,
@@ -116,8 +116,8 @@ export const ContextProvider = ({ children, }: ChildrenProps) => {
             }}
         >
             {children}
-        </Context_Work.Provider>
+        </TodoContext.Provider>
     );
 };
 
-export default Context_Work;
+export default TodoContext;

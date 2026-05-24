@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import Context_Work, { type Task } from "../context/Context_Work";
+import TodoContext, { type Task } from "../context/TodoContext";
 import Card from "./shared/Card";
 import { FaTrash, FaPen, } from "react-icons/fa";
 
@@ -7,11 +7,11 @@ type ShowTaskProps = {
   item: Task;
 };
 
-function Show_Task({ item }: ShowTaskProps) {
-  const context = useContext(Context_Work);
+function ShowTask({ item }: ShowTaskProps) {
+  const context = useContext(TodoContext);
   if (!context) {
     throw new Error(
-      "Show_Task must be used inside ContextProvider"
+      "ShowTask must be used inside ContextProvider"
     );
   }
 
@@ -72,4 +72,4 @@ function Show_Task({ item }: ShowTaskProps) {
   );
 }
 
-export default Show_Task;
+export default ShowTask;

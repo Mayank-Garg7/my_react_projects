@@ -3,7 +3,7 @@ import Button from "./shared/Button";
 import { useState } from "react";
 import { useWorkContext } from "../hooks/useWorkContext";
 
-function ToDos_Form() {
+function ToDosForm() {
     const [text, setText] = useState("");
     const [showMessage, setShowMessage] = useState(false);
     const { add_To_Work, edit, update_Work } = useWorkContext();
@@ -51,4 +51,4 @@ function ToDos_Form() {
     );
 }
 
-export default ToDos_Form;
+export default ToDosForm;
