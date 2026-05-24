@@ -1,6 +1,6 @@
 import Card from "./shared/Card";
 import Button from "./shared/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useWorkContext } from "../hooks/useWorkContext";
 
 function ToDosForm() {
@@ -8,6 +8,11 @@ function ToDosForm() {
     const [showMessage, setShowMessage] = useState(false);
     const { add_To_Work, edit, update_Work } = useWorkContext();
 
+    useEffect(() =>{
+        if(edit.edit && edit.item){
+            setText(edit.item.text)
+        }
+    }, [edit])
 
     const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
@@ -23,6 +28,7 @@ function ToDosForm() {
         } else {
             (edit.edit && edit.item) ? update_Work(edit.item?.id, text) : add_To_Work(text)
         }
+        setText("")
     };
 
 
