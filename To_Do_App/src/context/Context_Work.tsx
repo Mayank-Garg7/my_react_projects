@@ -72,8 +72,7 @@ export const ContextProvider = ({ children, }: ChildrenProps) => {
         setWork((prev) =>
             prev.map((task) =>
                 task.id === id ? { ...task, text } : task
-            )
-        );
+            ))
     }
 
 
