@@ -9,15 +9,17 @@ export type Task = {
 };
 
 type editType = {
-    item: {};
+    item: Task | null;
     edit: boolean;
-}
+};
 
 type ContextType = {
     work: Task[];
+    edit: editType;
     add_To_Work: (text: string) => void;
     delete_Work: (id: number) => void;
     update_Work: (id: number, text: string) => void;
+    handleEdit: (item: Task) => void;
     updateTaskStatus: (
         id: number,
         status: "pending" | "completed"
@@ -35,7 +37,7 @@ type ChildrenProps = {
 
 export const ContextProvider = ({ children, }: ChildrenProps) => {
     const [edit, setEdit] = useState<editType>({
-        item: {},
+        item: null,
         edit: false
     })
 
@@ -67,7 +69,11 @@ export const ContextProvider = ({ children, }: ChildrenProps) => {
 
     // Update task 
     const update_Work = (id: number, text: string) => {
-
+        setWork((prev) =>
+            prev.map((task) =>
+                task.id === id ? { ...task, text } : task
+            )
+        );
     }
 
 
@@ -79,9 +85,9 @@ export const ContextProvider = ({ children, }: ChildrenProps) => {
     }
 
 
-    const handleEdit = (item: {}) => {
+    const handleEdit = (item: Task) => {
         setEdit({
-            item: item,
+            item,
             edit: true
         })
     }
