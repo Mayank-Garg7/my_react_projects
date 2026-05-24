@@ -6,7 +6,7 @@ import { useWorkContext } from "../hooks/useWorkContext";
 function ToDos_Form() {
     const [text, setText] = useState("");
     const [showMessage, setShowMessage] = useState(false);
-    const { add_To_Work } = useWorkContext();
+    const { add_To_Work, edit, update_Work } = useWorkContext();
 
 
     const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,7 +21,7 @@ function ToDos_Form() {
         if (text.trim().length === 0 || text.trim().length < 10) {
             window.alert("text must be atleast 10 character long")
         } else {
-            add_To_Work(text)
+            (edit.edit && edit.item) ? update_Work(edit.item?.id, text) : add_To_Work(text)
         }
     };
 

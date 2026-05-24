@@ -8,12 +8,18 @@ export type Task = {
     status: "pending" | "completed";
 };
 
+type editType = {
+    item: Task | null;
+    edit: boolean;
+};
 
 type ContextType = {
     work: Task[];
+    edit: editType;
     add_To_Work: (text: string) => void;
     delete_Work: (id: number) => void;
     update_Work: (id: number, text: string) => void;
+    handleEdit: (item: Task) => void;
     updateTaskStatus: (
         id: number,
         status: "pending" | "completed"
@@ -30,6 +36,11 @@ type ChildrenProps = {
 
 
 export const ContextProvider = ({ children, }: ChildrenProps) => {
+    const [edit, setEdit] = useState<editType>({
+        item: null,
+        edit: false
+    })
+
     // initialize from localStorage OR json data
     const [work, setWork] = useState<Task[]>(() => {
         const data = localStorage.getItem("Work_to_do");
@@ -58,15 +69,26 @@ export const ContextProvider = ({ children, }: ChildrenProps) => {
 
     // Update task 
     const update_Work = (id: number, text: string) => {
-        console.log(id,"object",text)
+        setWork((prev) =>
+            prev.map((task) =>
+                task.id === id ? { ...task, text } : task
+            ))
     }
 
 
     // delete task
     const delete_Work = (id: number) => {
-        if(window.confirm("Are you sure to delete")){
+        if (window.confirm("Are you sure to delete")) {
             setWork((prev) => prev.filter((item) => item.id !== id))
         }
+    }
+
+
+    const handleEdit = (item: Task) => {
+        setEdit({
+            item,
+            edit: true
+        })
     }
 
     // update status
@@ -86,6 +108,8 @@ export const ContextProvider = ({ children, }: ChildrenProps) => {
             value={{
                 work,
                 add_To_Work,
+                edit,
+                handleEdit,
                 update_Work,
                 delete_Work,
                 updateTaskStatus,

@@ -1,14 +1,7 @@
 import { useContext } from "react";
-import Context_Work, {
-  type Task,
-} from "../context/Context_Work";
-
+import Context_Work, { type Task } from "../context/Context_Work";
 import Card from "./shared/Card";
-
-import {
-  FaTrash,
-  FaPen,
-} from "react-icons/fa";
+import { FaTrash, FaPen, } from "react-icons/fa";
 
 type ShowTaskProps = {
   item: Task;
@@ -16,18 +9,17 @@ type ShowTaskProps = {
 
 function Show_Task({ item }: ShowTaskProps) {
   const context = useContext(Context_Work);
-
   if (!context) {
     throw new Error(
       "Show_Task must be used inside ContextProvider"
     );
   }
 
-  const { updateTaskStatus } = context;
 
-  const handleStatusChange = (
-    e: React.ChangeEvent<HTMLSelectElement>
-  ) => {
+  const { updateTaskStatus, delete_Work, handleEdit} = context;
+
+
+  const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     updateTaskStatus(
       item.id,
       e.target.value as "pending" | "completed"
@@ -42,46 +34,34 @@ function Show_Task({ item }: ShowTaskProps) {
           <p className={`text-sm md:text-base ${item.status === "completed" ? "line-through text-gray-400" : "text-white"} font-medium leading-relaxed`}>
             {item.text}
           </p>
-            <select
-              value={item.status}
-              onChange={handleStatusChange}
-              className="text-sm rounded-md px-2 py-1 bg-white text-gray-700 outline-none focus:ring-2 focus:ring-blue-400"
-            >
-              <option value="pending">
-                Pending
-              </option>
+          <select
+            value={item.status}
+            onChange={handleStatusChange}
+            className="text-sm rounded-md px-2 py-1 bg-white text-gray-700 outline-none focus:ring-2 focus:ring-blue-400"
+          >
+            <option value="pending">
+              Pending
+            </option>
 
-              <option value="completed">
-                Completed
-              </option>
-            </select>
+            <option value="completed">
+              Completed
+            </option>
+          </select>
         </div>
 
         {/* RIGHT SIDE ACTIONS */}
         <div className="flex items-center gap-3">
 
           <button
-            className="
-              p-2
-              rounded-md
-              text-gray-500
-              hover:bg-green-100
-              hover:text-green-600
-              transition
-            "
+            onClick={()=>handleEdit(item)}
+            className="p-2 rounded-md text-gray-500 hover:bg-green-100 hover:text-green-600"
           >
             <FaPen />
           </button>
 
           <button
-            className="
-              p-2
-              rounded-md
-              text-gray-500
-              hover:bg-red-100
-              hover:text-red-600
-              transition
-            "
+            onClick={() => delete_Work(item.id)}
+            className="p-2 rounded-md text-gray-500 hover:bg-red-100 hover:text-red-600 transitio"
           >
             <FaTrash />
           </button>
