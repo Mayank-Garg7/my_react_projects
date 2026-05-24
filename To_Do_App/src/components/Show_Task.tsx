@@ -54,6 +54,7 @@ function Show_Task({ item }: ShowTaskProps) {
 
           <button
             onClick={()=>handleEdit(item)}
+            disabled = {item.status === "completed"}
             className="p-2 rounded-md text-gray-500 hover:bg-green-100 hover:text-green-600"
           >
             <FaPen />

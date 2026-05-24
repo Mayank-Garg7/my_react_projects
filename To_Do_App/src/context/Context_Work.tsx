@@ -85,6 +85,7 @@ export const ContextProvider = ({ children, }: ChildrenProps) => {
 
 
     const handleEdit = (item: Task) => {
+        if (item.status === "completed") return;
         setEdit({
             item,
             edit: true
