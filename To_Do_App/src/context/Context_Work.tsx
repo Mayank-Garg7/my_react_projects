@@ -85,6 +85,7 @@ export const ContextProvider = ({ children, }: ChildrenProps) => {
 
 
     const handleEdit = (item: Task) => {
+        if (item.status === "completed") return;
         setEdit({
             item,
             edit: true
@@ -94,11 +95,10 @@ export const ContextProvider = ({ children, }: ChildrenProps) => {
     // update status
     const updateTaskStatus = (id: number, status: "pending" | "completed") => {
         setWork((prev) =>
-            prev.map((task) =>
-                task.id === id
-                    ? { ...task, status }
-                    : task
-            )
+            prev.map((task) => {
+                if (task.status === "completed" || task.id !== id) return task
+                else return { ...task, status }
+            })
         );
     };
 
