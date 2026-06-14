@@ -1,27 +1,22 @@
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy import create_engine
+from sqlalchemy.orm import declarative_base, sessionmaker
 
-from app.database import Base, engine
-from app.routes import task
+DATABASE_URL = "postgresql+psycopg://postgres:1234567890@localhost:5432/todo_db"
 
-app = FastAPI()
+engine = create_engine(DATABASE_URL)
 
-# CORS
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+SessionLocal = sessionmaker(
+    autocommit=False,
+    autoflush=False,
+    bind=engine
 )
 
-# Create tables (dev only)
-Base.metadata.create_all(bind=engine)
+Base = declarative_base()
 
-# Register routes
-app.include_router(task.router, prefix="/tasks", tags=["Tasks"])
-
-
-@app.get("/")
-def root():
-    return {"message": "API is running"}
+# Add this
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
