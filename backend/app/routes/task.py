@@ -42,3 +42,5 @@ def delete(task_id: int, db: Session = Depends(get_db)):
 
     crud.delete_task(db, db_task)
     return {"message": "Task deleted successfully"}
+
+    
